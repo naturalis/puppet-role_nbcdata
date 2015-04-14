@@ -10,25 +10,28 @@ class role_nbcdata (
   $docroot                                = '/var/www/htdocs',
   $webdirs                                = ['/var/www/htdocs'],
   $rwwebdirs                              = ['/var/www/htdocs/cache'],
-  $enable_mysql                           = undef,
-  $enable_phpmyadmin                      = false,
+  $php_memory_limit                       = '128M',
+  $upload_max_filesize                    = '2M',
+  $post_max_size                          = '8M',
+  $enable_mysql                           = true,
+  $enable_phpmyadmin                      = true,
   $mysql_root_password                    = 'rootpassword',
   $mysql_manage_config_file               = true,
-  $mysql_key_buffer_size                  = undef,
-  $mysql_query_cache_limit                = undef,
-  $mysql_query_cache_size                 = undef,
-  $mysql_innodb_buffer_pool_size          = undef,
-  $mysql_innodb_additional_mem_pool_size  = undef,
-  $mysql_innodb_log_buffer_size           = undef,
-  $mysql_max_connections                  = undef,
-  $mysql_max_heap_table_size              = undef,
-  $mysql_lower_case_table_names           = undef,
-  $mysql_innodb_file_per_table            = undef,
-  $mysql_tmp_table_size                   = undef,
-  $mysql_table_open_cache                 = undef,
+  $mysql_key_buffer_size                  = 64M,
+  $mysql_query_cache_limit                = 2M,
+  $mysql_query_cache_size                 = 64M,
+  $mysql_innodb_buffer_pool_size          = 512M,
+  $mysql_innodb_additional_mem_pool_size  = 512M,
+  $mysql_innodb_log_buffer_size           = 256M,
+  $mysql_max_connections                  = 500,
+  $mysql_max_heap_table_size              = 512M,
+  $mysql_lower_case_table_names           = undef,  # nog een probleem
+  $mysql_innodb_file_per_table            = ON,
+  $mysql_tmp_table_size                   = 512M,
+  $mysql_table_open_cache                 = 450,
   $instances                              =
-          {'site.lampsite.nl' => {
-            'serveraliases'   => '*.lampsite.nl',
+          {'nbcdata.naturalis.nl' => {
+            'serveraliases'   => '*.naturalis.nl',
             'docroot'         => '/var/www/htdocs',
             'directories'     => [{ 'path' => '/var/www/htdocs', 'options' => '-Indexes +FollowSymLinks +MultiViews', 'allow_override' => 'All' }],
             'port'            => 80,
@@ -36,9 +39,9 @@ class role_nbcdata (
             'priority'        => 10,
             },
           },
-  $keepalive                            = 'Off',
+  $keepalive                            = 'On',
   $max_keepalive_requests               = '100',
-  $keepalive_timeout                    = '15',
+  $keepalive_timeout                    = '1500',
 ){
 
     file { $webdirs:
@@ -58,6 +61,12 @@ class role_nbcdata (
 
 # install php module php-gd
   php::module { [ 'gd','mysql','curl' ]: }
+
+  php::ini { '/etc/php.ini':
+    memory_limit              => $php_memory_limit,
+    upload_max_filesize       => $upload_max_filesize,
+    post_max_size             => $post_max_size,
+    }
 
 # Install apache and enable modules
   class { 'apache':
