@@ -8,6 +8,12 @@
 #
 class role_nbcdata (
   $docroot                                = '/var/www/htdocs',
+  $gitrepos                               =
+          {'datamignbc' => {
+            'reposource'   => 'git@github.com:naturalis/datamigratie_nbc.git',
+            'repokey'      => 'PRIVATE KEY here',
+            },
+          },
   $webdirs                                = ['/var/www/htdocs'],
   $rwwebdirs                              = ['/var/www/htdocs/cache'],
   $php_memory_limit                       = '128M',
@@ -30,15 +36,15 @@ class role_nbcdata (
   $mysql_tmp_table_size                   = 512M,
   $mysql_table_open_cache                 = 450,
   $instances                              =
-          {'nbcdata.naturalis.nl' => {
-            'serveraliases'   => '*.naturalis.nl',
-            'docroot'         => '/var/www/htdocs',
-            'directories'     => [{ 'path' => '/var/www/htdocs', 'options' => '-Indexes +FollowSymLinks +MultiViews', 'allow_override' => 'All' }],
-            'port'            => 80,
-            'serveradmin'     => 'webmaster@naturalis.nl',
-            'priority'        => 10,
-            },
+        {'nbcdata.naturalis.nl' => {
+          'serveraliases'   => '*.naturalis.nl',
+          'docroot'         => '/var/www/htdocs',
+          'directories'     => [{ 'path' => '/var/www/htdocs', 'options' => '-Indexes +FollowSymLinks +MultiViews', 'allow_override' => 'All' }],
+          'port'            => 80,
+          'serveradmin'     => 'webmaster@naturalis.nl',
+          'priority'        => 10,
           },
+        },
   $keepalive                            = 'On',
   $max_keepalive_requests               = '100',
   $keepalive_timeout                    = '1500',
@@ -112,6 +118,20 @@ class role_nbcdata (
         }
     }
   }
+
+# create /usr/share/git
+  file { '/usr/share/git': 
+    ensure  => 'directory',
+    mode    => '0755'
+  }
+
+# General repo settings
+  class { 'role_nbcdata::repogeneral': }
+
+# Check out repositories
+  create_resources('role_nbcdata::repo', $gitrepos)
+
+
 # Install and configure phpMyadmin
   if $enable_phpmyadmin {
     class { 'role_nbcdata::phpmyadmin': }
