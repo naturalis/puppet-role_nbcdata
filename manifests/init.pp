@@ -67,13 +67,16 @@ class role_nbcdata (
       require                 => File[$webdirs]
     }
 
-# index page
+# index and info page
     file { '/var/www/htdocs/index.php':
       ensure                => present,
       mode                  => '0644',
-      content               => template("nbcdata/index.php.erb"),
+      content               => template("role_nbcdata/index.php.erb"),
       require               => File[$webdirs]
-  }
+    }
+    file { "/var/www/htdocs/info.php":
+      content => "<?php phpinfo(); ?>",
+    }
 
 # install php module php-gd
   php::module { [ 'gd','mysql','curl' ]: }
@@ -131,12 +134,6 @@ class role_nbcdata (
     }
   }
 
-# create /usr/share/git
-  file { '/usr/share/git': 
-    ensure  => 'directory',
-    mode    => '0755'
-  }
-
 # General repo settings
   class { 'role_nbcdata::repogeneral': }
 
@@ -144,10 +141,10 @@ class role_nbcdata (
   create_resources('role_nbcdata::repo', $gitrepos)
 
 # make symlink
-#  file { '/var/www/htdocs/crs':
-#    ensure => 'link',
-#    target => '/usr/share/git/datamigratie_nbc/QAW/Web',
-#  }
+  file { '/var/www/htdocs/crs':
+    ensure => 'link',
+    target => '/opt/git/datamignbc/QAW/Web',
+  }
 
 # Install and configure phpMyadmin
   if $enable_phpmyadmin {
