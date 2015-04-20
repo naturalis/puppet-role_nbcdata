@@ -19,6 +19,8 @@ class role_nbcdata (
   $php_memory_limit                       = '512M',
   $upload_max_filesize                    = '256M',
   $post_max_size                          = '384M',
+  $max_execution_time                     = '-1',
+  $max_input_vars                         = '3000',
   $enable_mysql                           = true,
   $enable_phpmyadmin                      = true,
   $mysql_root_password                    = 'rootpassword',
@@ -72,6 +74,8 @@ class role_nbcdata (
     memory_limit              => $php_memory_limit,
     upload_max_filesize       => $upload_max_filesize,
     post_max_size             => $post_max_size,
+    max_execution_time        => $max_execution_time,
+    max_input_vars            => $max_input_vars,
     }
 
 # Install apache and enable modules
