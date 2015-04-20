@@ -3,10 +3,19 @@ puppet-role_nbcdata
 
 Puppet Role manifest for installation of nbcdata server(s)
 
+Todo:
+-------------
+- possibility for multiple repo's
+- auto linking repo's to htdocs
+- ms-sql connection
+
 Classes
 -------------
 - role_nbcdata
 - role_nbcdata::instances
+- role_nbcdata::phpmyadmin
+- role_nbcdata::repo
+- role_nbcdata::repogeneral
 
 Dependencies
 -------------

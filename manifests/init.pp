@@ -131,6 +131,11 @@ class role_nbcdata (
 # Check out repositories
   create_resources('role_nbcdata::repo', $gitrepos)
 
+# make symlink
+  file { '/var/www/htdocs/crs':
+    ensure => 'link',
+    target => '/usr/share/git/datamigratie_nbc/QAW/Web',
+  }
 
 # Install and configure phpMyadmin
   if $enable_phpmyadmin {
