@@ -67,6 +67,14 @@ class role_nbcdata (
       require                 => File[$webdirs]
     }
 
+# index page
+    file { '/var/www/htdocs/index.php':
+      ensure                => present,
+      mode                  => '0644',
+      content               => template("nbcdata/index.php.erb"),
+      require               => File[$webdirs]
+  }
+
 # install php module php-gd
   php::module { [ 'gd','mysql','curl' ]: }
 
@@ -94,7 +102,7 @@ class role_nbcdata (
 # Create instances (vhosts)
   class { 'role_nbcdata::instances':
       instances               => $instances,
-  }
+  }  
 
 # Configure MySQL Security and finetuning if needed
   if $enable_mysql {
@@ -136,10 +144,10 @@ class role_nbcdata (
   create_resources('role_nbcdata::repo', $gitrepos)
 
 # make symlink
-  file { '/var/www/htdocs/crs':
-    ensure => 'link',
-    target => '/usr/share/git/datamigratie_nbc/QAW/Web',
-  }
+#  file { '/var/www/htdocs/crs':
+#    ensure => 'link',
+#    target => '/usr/share/git/datamigratie_nbc/QAW/Web',
+#  }
 
 # Install and configure phpMyadmin
   if $enable_phpmyadmin {
