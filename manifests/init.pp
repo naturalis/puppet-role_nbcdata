@@ -15,11 +15,11 @@ class role_nbcdata (
             'repokey'      => 'PRIVATE KEY here',
           },
         },
-	{'qawnbc' => {
-            'reposource'   => 'git@github.com:naturalis/qaw.git',
-            'repokey'      => 'PRIVATE KEY here',
-	  },
-	},
+#	{'qawnbc' => {
+#            'reposource'   => 'git@github.com:naturalis/qaw.git',
+#            'repokey'      => 'PRIVATE KEY here',
+#	  },
+#	},
 	],
   $webdirs                                = ['/var/www/htdocs'],
   $rwwebdirs                              = ['/var/www/htdocs/cache'],
