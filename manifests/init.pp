@@ -45,6 +45,11 @@ class role_nbcdata (
   $mysql_innodb_file_per_table            = ON,
   $mysql_tmp_table_size                   = 512M,
   $mysql_table_open_cache                 = 450,
+  $mysql_sql_mode                         = 'TRADITIONAL',
+  $mysql_long_query_time                  = 5,
+  $mysql_character_set_server             = 'utf8',
+  $mysql_collation_server                 = 'utf8_general_ci',
+
   $instances                              =
         {'nbcdata.naturalis.nl' => {
           'serveraliases'   => '*.naturalis.nl',
@@ -137,6 +142,11 @@ class role_nbcdata (
             'innodb_file_per_table'           => $mysql_innodb_file_per_table,
             'tmp_table_size'                  => $mysql_tmp_table_size,
             'table_open_cache'                => $mysql_table_open_cache,
+	    'sql_mode'			      => $mysql_sql_mode,
+	    'long_query_time'		      => $mysql_long_query_time,	
+	    'character_set_server'	      => $mysql_character_set_server,
+	    'collation_server'		      => $mysql_collation_server,
+
           }
         }
     }
