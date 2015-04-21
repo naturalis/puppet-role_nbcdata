@@ -9,11 +9,18 @@
 class role_nbcdata (
   $docroot                                = '/var/www/htdocs',
   $gitrepos                               =
-          {'datamignbc' => {
+        [
+	{'datamignbc' => {
             'reposource'   => 'git@github.com:naturalis/datamigratie_nbc.git',
             'repokey'      => 'PRIVATE KEY here',
-            },
           },
+        },
+	{'qawnbc' => {
+            'reposource'   => 'git@github.com:naturalis/qaw.git',
+            'repokey'      => 'PRIVATE KEY here',
+	  },
+	},
+	],
   $webdirs                                = ['/var/www/htdocs'],
   $rwwebdirs                              = ['/var/www/htdocs/cache'],
   $php_memory_limit                       = '512M',
@@ -21,6 +28,7 @@ class role_nbcdata (
   $post_max_size                          = '384M',
   $max_execution_time                     = '-1',
   $max_input_vars                         = '3000',
+  $mssql_packages			  = ['unixodbc','freetds-common','tdsodbc', 'php5-mssql'],
   $enable_mysql                           = true,
   $enable_phpmyadmin                      = true,
   $mysql_root_password                    = 'rootpassword',
@@ -41,7 +49,7 @@ class role_nbcdata (
         {'nbcdata.naturalis.nl' => {
           'serveraliases'   => '*.naturalis.nl',
           'docroot'         => '/var/www/htdocs',
-          'directories'     => [{ 'path' => '/var/www/htdocs', 'options' => '-Indexes +FollowSymLinks +MultiViews', 'allow_override' => 'All' }],
+          'directories'     => [{ 'path' => '/var/www/htdocs', 'options' => '-Indexes +FollowSymLinks +MultiViews', 'allow_override' => 'All' },{ 'path' => '/var/www/htdocs/qaw/public', 'options' => '+Indexes +FollowSymLinks +MultiViews', 'allow_override' => 'All' }],
           'port'            => 80,
           'serveradmin'     => 'webmaster@naturalis.nl',
           'priority'        => 10,
@@ -144,6 +152,34 @@ class role_nbcdata (
   file { '/var/www/htdocs/crs':
     ensure => 'link',
     target => '/opt/git/datamignbc/QAW/Web',
+  }
+  file { '/var/www/htdocs/qaw':
+    ensure => 'link',
+    target => '/opt/git/qawnbc',
+  }
+# install mssql packages
+  package { $mssql_packages:
+    ensure => installed,
+  }
+
+# setup odbc
+  file { '/etc/odbc.ini':
+    ensure                => present,
+    mode                  => '0644',
+    content               => template("role_nbcdata/odbc.ini.erb"),
+    require               => [Package[$mssql_packages]]
+  }
+  file { '/etc/odbcinst.ini':
+    ensure                => present,
+    mode                  => '0644',
+    content               => template("role_nbcdata/odbcinst.ini.erb"),
+    require               => [Package[$mssql_packages]]
+  }
+  file { '/etc/freetds/freetds.conf':
+    ensure                => present,
+    mode                  => '0644',
+    content               => template("role_nbcdata/freetds.conf.erb"),
+    require               => [Package[$mssql_packages]]
   }
 
 # Install and configure phpMyadmin
