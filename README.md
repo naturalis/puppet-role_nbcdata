@@ -6,8 +6,7 @@ Puppet Role manifest for installation of nbcdata server(s)
 Todo:
 -------------
 - possibility for multiple repo's
-- auto linking repo's to htdocs
-- ms-sql connection
+- fix default instances
 
 Classes
 -------------
