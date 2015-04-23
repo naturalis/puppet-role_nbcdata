@@ -8,18 +8,11 @@
 #
 class role_nbcdata (
   $docroot                                = '/var/www/htdocs',
-  $gitrepos                               = [
-    {'datamignbc' => {
-            'reposource'   => 'git@github.com:naturalis/datamigratie_nbc.git',
-            'repokey'      => 'PRIVATE KEY here',
-      },
-    },
-#   {'qawnbc' => {
-#            'reposource'   => 'git@github.com:naturalis/qaw.git',
-#            'repokey'      => 'PRIVATE KEY here',
-#     },
-#   },
-  ],
+  $gitrepos                               = {'datamignbc' => 
+                                              { 'reposource'   => 'git@github.com:naturalis/datamigratie_nbc.git',
+                                                'repokey'      => 'PRIVATE KEY here',
+                                              },
+                                            },
   $webdirs                                = ['/var/www/htdocs'],
   $rwwebdirs                              = ['/var/www/htdocs/cache'],
   $php_memory_limit                       = '512M',
@@ -93,7 +86,7 @@ class role_nbcdata (
 # install php module php-gd
   php::module { [ 'gd','mysql','curl' ]: }
 
-  php::ini { '/etc/php.ini':
+  php::ini { '/etc/php5/apache2/php.ini':
     memory_limit              => $php_memory_limit,
     upload_max_filesize       => $upload_max_filesize,
     post_max_size             => $post_max_size,
