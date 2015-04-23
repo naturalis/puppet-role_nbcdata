@@ -20,7 +20,8 @@ class role_nbcdata (
   $post_max_size                          = '384M',
   $max_execution_time                     = '-1',
   $max_input_vars                         = '3000',
-  $mssql_packages                         = ['unixodbc','freetds-common','tdsodbc', 'php5-mssql'],
+  $xdebug_max_nesting_level               = '500',
+  $extra_packages                         = ['unixodbc','freetds-common','tdsodbc','php5-mssql','php5-xdebug'],
   $enable_mysql                           = true,
   $enable_phpmyadmin                      = true,
   $mysql_root_password                    = 'rootpassword',
@@ -92,6 +93,11 @@ class role_nbcdata (
     post_max_size             => $post_max_size,
     max_execution_time        => $max_execution_time,
     max_input_vars            => $max_input_vars,
+  }
+  file { '/etc/php5/mods-available/xdebug.ini':
+    ensure                    => present,
+    content                   => template('role_nbcdata/xdebug.ini.erb'),
+    require                   => [Package[$extra_packages]]
     }
 
 # Install apache and enable modules
@@ -160,8 +166,8 @@ class role_nbcdata (
 #    target => '/opt/git/qawnbc',
 #  }
 
-# install mssql packages
-  package { $mssql_packages:
+# install extra packages
+  package { $extra_packages:
     ensure => installed,
   }
 
@@ -170,19 +176,19 @@ class role_nbcdata (
     ensure                => present,
     mode                  => '0644',
     content               => template('role_nbcdata/odbc.ini.erb'),
-    require               => [Package[$mssql_packages]]
+    require               => [Package[$extra_packages]]
   }
   file { '/etc/odbcinst.ini':
     ensure                => present,
     mode                  => '0644',
     content               => template('role_nbcdata/odbcinst.ini.erb'),
-    require               => [Package[$mssql_packages]]
+    require               => [Package[$extra_packages]]
   }
   file { '/etc/freetds/freetds.conf':
     ensure                => present,
     mode                  => '0644',
     content               => template('role_nbcdata/freetds.conf.erb'),
-    require               => [Package[$mssql_packages]]
+    require               => [Package[$extra_packages]]
   }
 
 # Install and configure phpMyadmin
