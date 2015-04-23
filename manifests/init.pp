@@ -163,10 +163,11 @@ class role_nbcdata (
     ensure => 'link',
     target => '/opt/git/datamignbc/QAW/Web',
   }
-  file { '/var/www/htdocs/qaw':
-    ensure => 'link',
-    target => '/opt/git/qawnbc',
-  }
+#  file { '/var/www/htdocs/qaw':
+#    ensure => 'link',
+#    target => '/opt/git/qawnbc',
+#  }
+
 # install mssql packages
   package { $mssql_packages:
     ensure => installed,
