@@ -8,19 +8,18 @@
 #
 class role_nbcdata (
   $docroot                                = '/var/www/htdocs',
-  $gitrepos                               =
-        [
-	{'datamignbc' => {
+  $gitrepos                               = [
+    {'datamignbc' => {
             'reposource'   => 'git@github.com:naturalis/datamigratie_nbc.git',
             'repokey'      => 'PRIVATE KEY here',
-          },
-        },
-#	{'qawnbc' => {
+      },
+    },
+#   {'qawnbc' => {
 #            'reposource'   => 'git@github.com:naturalis/qaw.git',
 #            'repokey'      => 'PRIVATE KEY here',
-#	  },
-#	},
-	],
+#     },
+#   },
+  ],
   $webdirs                                = ['/var/www/htdocs'],
   $rwwebdirs                              = ['/var/www/htdocs/cache'],
   $php_memory_limit                       = '512M',
@@ -28,7 +27,7 @@ class role_nbcdata (
   $post_max_size                          = '384M',
   $max_execution_time                     = '-1',
   $max_input_vars                         = '3000',
-  $mssql_packages			  = ['unixodbc','freetds-common','tdsodbc', 'php5-mssql'],
+  $mssql_packages                         = ['unixodbc','freetds-common','tdsodbc', 'php5-mssql'],
   $enable_mysql                           = true,
   $enable_phpmyadmin                      = true,
   $mysql_root_password                    = 'rootpassword',
@@ -84,11 +83,11 @@ class role_nbcdata (
     file { '/var/www/htdocs/index.php':
       ensure                => present,
       mode                  => '0644',
-      content               => template("role_nbcdata/index.php.erb"),
+      content               => template('role_nbcdata/index.php.erb'),
       require               => File[$webdirs]
     }
-    file { "/var/www/htdocs/info.php":
-      content => "<?php phpinfo(); ?>",
+    file { '/var/www/htdocs/info.php':
+      content => '<?php phpinfo(); ?>',
     }
 
 # install php module php-gd
@@ -118,7 +117,7 @@ class role_nbcdata (
 # Create instances (vhosts)
   class { 'role_nbcdata::instances':
       instances               => $instances,
-  }  
+  }
 
 # Configure MySQL Security and finetuning if needed
   if $enable_mysql {
@@ -142,10 +141,10 @@ class role_nbcdata (
             'innodb_file_per_table'           => $mysql_innodb_file_per_table,
             'tmp_table_size'                  => $mysql_tmp_table_size,
             'table_open_cache'                => $mysql_table_open_cache,
-	    'sql_mode'			      => $mysql_sql_mode,
-	    'long_query_time'		      => $mysql_long_query_time,	
-	    'character_set_server'	      => $mysql_character_set_server,
-	    'collation_server'		      => $mysql_collation_server,
+            'sql_mode'                        => $mysql_sql_mode,
+            'long_query_time'                 => $mysql_long_query_time,
+            'character_set_server'            => $mysql_character_set_server,
+            'collation_server'                => $mysql_collation_server,
 
           }
         }
@@ -177,19 +176,19 @@ class role_nbcdata (
   file { '/etc/odbc.ini':
     ensure                => present,
     mode                  => '0644',
-    content               => template("role_nbcdata/odbc.ini.erb"),
+    content               => template('role_nbcdata/odbc.ini.erb'),
     require               => [Package[$mssql_packages]]
   }
   file { '/etc/odbcinst.ini':
     ensure                => present,
     mode                  => '0644',
-    content               => template("role_nbcdata/odbcinst.ini.erb"),
+    content               => template('role_nbcdata/odbcinst.ini.erb'),
     require               => [Package[$mssql_packages]]
   }
   file { '/etc/freetds/freetds.conf':
     ensure                => present,
     mode                  => '0644',
-    content               => template("role_nbcdata/freetds.conf.erb"),
+    content               => template('role_nbcdata/freetds.conf.erb'),
     require               => [Package[$mssql_packages]]
   }
 
