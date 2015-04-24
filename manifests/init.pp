@@ -8,11 +8,19 @@
 #
 class role_nbcdata (
   $docroot                                = '/var/www/htdocs',
-  $gitrepos                               = {'datamignbc' => 
-                                              { 'reposource'   => 'git@github.com:naturalis/datamigratie_nbc.git',
-                                                'repokey'      => 'PRIVATE KEY here',
-                                              },
-                                            },
+  $gitrepos                               =
+        [
+	{'datamignbc' => {
+            'reposource'   => 'git@github.com:naturalis/datamigratie_nbc.git',
+            'repokey'      => 'PRIVATE KEY here',
+          },
+        },
+#	{'qawnbc' => {
+#            'reposource'   => 'git@github.com:naturalis/qaw.git',
+#            'repokey'      => 'PRIVATE KEY here',
+#	  },
+#	},
+	], 
   $webdirs                                = ['/var/www/htdocs'],
   $rwwebdirs                              = ['/var/www/htdocs/cache'],
   $php_memory_limit                       = '512M',
@@ -20,6 +28,7 @@ class role_nbcdata (
   $post_max_size                          = '384M',
   $max_execution_time                     = '-1',
   $max_input_vars                         = '3000',
+  $max_input_time                         = '6000',
   $xdebug_max_nesting_level               = '500',
   $extra_packages                         = ['unixodbc','freetds-common','tdsodbc','php5-mssql','php5-xdebug'],
   $enable_mysql                           = true,
@@ -93,6 +102,7 @@ class role_nbcdata (
     post_max_size             => $post_max_size,
     max_execution_time        => $max_execution_time,
     max_input_vars            => $max_input_vars,
+    max_input_time            => $max_input_time, 
   }
   file { '/etc/php5/mods-available/xdebug.ini':
     ensure                    => present,
