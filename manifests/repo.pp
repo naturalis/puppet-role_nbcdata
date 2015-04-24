@@ -30,7 +30,7 @@ $repokeyname = $repouser
   file { "/home/${repouser}":
     ensure      => 'directory',
     owner       => $repouser,
-    mode        => 0770,
+    mode        => '0770',
     require     => User[$repouser]
   }
 
@@ -77,4 +77,3 @@ $repokeyname = $repouser
     revision  => $reporevision,
   }
 }
-
