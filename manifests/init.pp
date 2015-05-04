@@ -69,6 +69,7 @@ class role_nbcdata (
   $keepalive                            = 'On',
   $max_keepalive_requests               = '100',
   $keepalive_timeout                    = '1500',
+  $timeout                              = '360000'
 ){
 
     file { $webdirs:
