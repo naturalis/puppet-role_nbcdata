@@ -51,6 +51,10 @@ class role_nbcdata (
   $mysql_long_query_time                  = 5,
   $mysql_character_set_server             = 'utf8',
   $mysql_collation_server                 = 'utf8_general_ci',
+  $mysql_connect_timeout                  = '-1',
+  $mysql_default_socket_timeout           = '60',
+  $mssql_connect_timeout                  = undef,
+  $mssql_timeout                          = undef,
 
   $instances                              =
         {'nbcdata.naturalis.nl' => {
@@ -154,6 +158,10 @@ class role_nbcdata (
             'long_query_time'                 => $mysql_long_query_time,
             'character_set_server'            => $mysql_character_set_server,
             'collation_server'                => $mysql_collation_server,
+            'mysql_connect_timeout'           => $mysql_connect_timeout,
+            'default_socket_timeout'          => $mysql_default_socket_timeout,
+            'mssql_connect_timeout'           => $mssql_connect_timeout,
+            'mssql_timeout'                   => $mssql_timeout,
 
           }
         }
