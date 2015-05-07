@@ -55,6 +55,7 @@ class role_nbcdata (
   $mysql_default_socket_timeout           = '60',
   $mssql_connect_timeout                  = undef,
   $mssql_timeout                          = undef,
+  $mysql_session_gc_maxlifetime           = '144000',
 
   $instances                              =
         {'nbcdata.naturalis.nl' => {
@@ -163,7 +164,7 @@ class role_nbcdata (
             'default_socket_timeout'          => $mysql_default_socket_timeout,
             'mssql_connect_timeout'           => $mssql_connect_timeout,
             'mssql_timeout'                   => $mssql_timeout,
-
+            'session_gc_maxlifetime'          => $mysql_session_gc_maxlifetime,
           }
         }
     }
