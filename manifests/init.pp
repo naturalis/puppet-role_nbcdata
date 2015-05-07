@@ -164,7 +164,7 @@ class role_nbcdata (
             'default_socket_timeout'          => $mysql_default_socket_timeout,
             'mssql_connect_timeout'           => $mssql_connect_timeout,
             'mssql_timeout'                   => $mssql_timeout,
-            'session_gc_maxlifetime'          => $mysql_session_gc_maxlifetime,
+            'session.gc_maxlifetime'          => $mysql_session_gc_maxlifetime,
           }
         }
     }
