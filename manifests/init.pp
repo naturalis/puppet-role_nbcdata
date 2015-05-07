@@ -44,15 +44,15 @@ class role_nbcdata (
   $mysql_max_connections                  = 500,
   $mysql_max_heap_table_size              = 512M,
   $mysql_lower_case_table_names           = undef,  # nog een probleem
-  $mysql_innodb_file_per_table            = ON,
+  $mysql_innodb_file_per_table            = '1',
   $mysql_tmp_table_size                   = 512M,
   $mysql_table_open_cache                 = 450,
   $mysql_sql_mode                         = 'TRADITIONAL',
   $mysql_long_query_time                  = 5,
   $mysql_character_set_server             = 'utf8',
   $mysql_collation_server                 = 'utf8_general_ci',
-  $mysql_connect_timeout                  = '-1',
-  $mysql_default_socket_timeout           = '60',
+  $mysql_connect_timeout                  = '360000',
+  $mysql_default_socket_timeout           = undef,
   $mssql_connect_timeout                  = undef,
   $mssql_timeout                          = undef,
 
