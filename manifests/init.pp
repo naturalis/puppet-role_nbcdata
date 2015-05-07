@@ -52,7 +52,7 @@ class role_nbcdata (
   $mysql_character_set_server             = 'utf8',
   $mysql_collation_server                 = 'utf8_general_ci',
   $mysql_connect_timeout                  = undef,
-  $mysql_default_socket_timeout           = undef,
+#  $mysql_default_socket_timeout           = undef,
   $mssql_connect_timeout                  = undef,
   $mssql_timeout                          = undef,
 
@@ -160,10 +160,9 @@ class role_nbcdata (
             'character_set_server'            => $mysql_character_set_server,
             'collation_server'                => $mysql_collation_server,
             'connect_timeout'                 => $mysql_connect_timeout,
-            'default_socket_timeout'          => $mysql_default_socket_timeout,
+ #          'default_socket_timeout'          => $mysql_default_socket_timeout,
             'mssql_connect_timeout'           => $mssql_connect_timeout,
             'mssql_timeout'                   => $mssql_timeout,
-
           }
         }
     }
