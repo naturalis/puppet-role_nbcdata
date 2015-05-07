@@ -159,7 +159,7 @@ class role_nbcdata (
             'long_query_time'                 => $mysql_long_query_time,
             'character_set_server'            => $mysql_character_set_server,
             'collation_server'                => $mysql_collation_server,
-            'mysql_connect_timeout'           => $mysql_connect_timeout,
+            'connect_timeout'                 => $mysql_connect_timeout,
             'default_socket_timeout'          => $mysql_default_socket_timeout,
             'mssql_connect_timeout'           => $mssql_connect_timeout,
             'mssql_timeout'                   => $mssql_timeout,
