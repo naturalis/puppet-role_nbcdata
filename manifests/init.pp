@@ -51,7 +51,7 @@ class role_nbcdata (
   $mysql_long_query_time                  = 5,
   $mysql_character_set_server             = 'utf8',
   $mysql_collation_server                 = 'utf8_general_ci',
-  $mysql_connect_timeout                  = '360000',
+  $mysql_connect_timeout                  = undef,
   $mysql_default_socket_timeout           = undef,
   $mssql_connect_timeout                  = undef,
   $mssql_timeout                          = undef,
