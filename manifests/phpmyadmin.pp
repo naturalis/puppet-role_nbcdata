@@ -13,10 +13,18 @@ class role_nbcdata::phpmyadmin ()
     refreshonly             => true,
   }
   exec { 'enable-mcrypt':
-  command                   => 'php5enmod mcrypt',
-  path                      => ['/bin', '/usr/bin', '/usr/sbin'],
-  require                   => Package['phpmyadmin', 'apache2'],
-  refreshonly               => true,
-  notify                    => Service['apache2'],
-}
+    command                   => 'php5enmod mcrypt',
+    path                      => ['/bin', '/usr/bin', '/usr/sbin'],
+    require                   => Package['phpmyadmin', 'apache2'],
+    refreshonly               => true,
+    notify                    => Service['apache2'],
+  }
+
+  file { '/etc/phpmyadmin/config.inc.php':
+    ensure                    => present,
+    content                   => template('role_nbcdata/phpmyadmin_config.inc.php.erb'),
+    require                   => Package['phpmyadmin', 'apache2'],
+    notify                    => Service['apache2'],
+  }
+
 }
