@@ -30,6 +30,7 @@ class role_nbcdata (
   $max_input_vars                         = '213000',
   $max_input_time                         = '6000',
   $xdebug_max_nesting_level               = '1000',
+  $session_gc_maxlifetime                 = '86400',
   $extra_packages                         = ['unixodbc','freetds-common','tdsodbc','php5-mssql','php5-xdebug'],
   $enable_mysql                           = true,
   $enable_phpmyadmin                      = true,
@@ -108,6 +109,7 @@ class role_nbcdata (
     max_execution_time        => $max_execution_time,
     max_input_vars            => $max_input_vars,
     max_input_time            => $max_input_time,
+    session_gc_maxlifetime    => $session_gc_maxlifetime,
   }
   file { '/etc/php5/mods-available/xdebug.ini':
     ensure                    => present,
