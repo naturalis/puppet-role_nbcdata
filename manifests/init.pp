@@ -21,6 +21,8 @@ class role_nbcdata (
 #   },
 # },
     ],
+  $usercolor                              = 'red',
+  $username                               = 'rood',
   $webdirs                                = ['/var/www/htdocs'],
   $rwwebdirs                              = ['/var/www/htdocs/cache'],
   $php_memory_limit                       = '512M',
