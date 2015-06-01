@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>NBCdata - <%= @username %> </title>
+    <title>NBCdata-<%= @username %></title>
     <style>
 body{background:<%= @usercolor %>}
 .centerkop {color: maroon;text-align:center;padding:120px 5px;font-size:150%;}
@@ -21,7 +21,7 @@ div.center{background-image:url("trex-nbcdata2.png");background-repeat:no-repeat
       <tr class="h">
         <td class="centerkop">
           <a href="info.php"><img src="http://www.naturalis.nl/media/library/2012/07/Naturalis_logo_staand_rood_01.jpg" width="120px"></a>
-          <h1>NBC DATA </h1>
+          <h1>NBC DATA - <%= @username %></h1>
           <div class="buttons">
            <div class="buttondiv"><a href="/phpmyadmin" class="button">phpMyAdmin</a></div>
            <div class="buttondiv"><a href="/crs" class="button">CRS</a></div>
