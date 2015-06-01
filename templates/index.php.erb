@@ -24,7 +24,7 @@ body{background:<%= @usercolor %>}
       if (!isset($_POST['project'])) {
         if (!empty($projects)) {
          foreach ($projects as $project) {
-            echo "<option value='$project'>$project</option>";
+            echo "<li>$project</li>";
          }
        }
      }
